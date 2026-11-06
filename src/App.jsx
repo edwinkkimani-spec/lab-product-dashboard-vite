@@ -1,21 +1,54 @@
-import React, { useState } from 'react';
-import ProductList from './components/ProductList';
+
+import React, { useState } from "react";
+import ProductList from "./components/ProductList";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
 
 const App = () => {
-  // TODO: Define initial product data
+  const [products, setProducts] = useState([
+    { id: 1, name: "Laptop", price: 80000, inStock: true },
+    { id: 2, name: "Phone", price: 45000, inStock: false },
+    { id: 3, name: "Tablet", price: 30000, inStock: true },
+    { id: 4, name: "Headphones", price: 5000, inStock: false },
+    { id: 5, name: "Keyboard", price: 3500, inStock: true }
+  ]);
 
-  // TODO: Implement state to manage filtering
+  const [filter, setFilter] = useState("all");
 
-  // TODO: Implement logic to filter products based on availability
+  const handleRemove = (id) => {
+    setProducts((previousProducts) =>
+      previousProducts.filter((product) => product.id !== id)
+    );
+  };
+
+  const filteredProducts = products.filter((product) => {
+    if (filter === "inStock") return product.inStock;
+    if (filter === "outOfStock") return !product.inStock;
+    return true;
+  });
 
   return (
     <div>
-      <h1>{/* TODO: Add 'Product Dashboard' title here */}</h1>
-      
-      {/* TODO: Add buttons to allow filtering by availability */}
+      <h1>Product Dashboard</h1>
 
-      {/* TODO: Render the ProductList component and pass filtered products */}
-      
+      <Stack direction="row" spacing={2} sx={{ mb: 3 }}>
+        <Button variant="contained" onClick={() => setFilter("all")}>
+          All Products
+        </Button>
+
+        <Button variant="contained" onClick={() => setFilter("inStock")}>
+          In Stock
+        </Button>
+
+        <Button variant="contained" onClick={() => setFilter("outOfStock")}>
+          Out of Stock
+        </Button>
+      </Stack>
+
+      <ProductList
+        products={filteredProducts}
+        onRemove={handleRemove}
+      />
     </div>
   );
 };

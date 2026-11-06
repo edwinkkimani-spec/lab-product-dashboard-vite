@@ -24,7 +24,9 @@ test('displays all products initially', () => {
 
 test('applies conditional styling for out-of-stock products', () => {
   render(<App />)
-  const outOfStockProduct = screen.getByText(/Phone/i) // Make sure "Phone" exists in sampleProducts
+  const outOfStockProduct = screen.getByText("Phone", {
+  exact: true
+});// Make sure "Phone" exists in sampleProducts
   expect(outOfStockProduct.closest('div')).toHaveClass('outOfStockClass')
 })
 
