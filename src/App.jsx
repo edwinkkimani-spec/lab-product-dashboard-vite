@@ -6,11 +6,9 @@ import Stack from "@mui/material/Stack";
 
 const App = () => {
   const [products, setProducts] = useState([
-    { id: 1, name: "Laptop", price: 80000, inStock: true },
-    { id: 2, name: "Phone", price: 45000, inStock: false },
-    { id: 3, name: "Tablet", price: 30000, inStock: true },
-    { id: 4, name: "Headphones", price: 5000, inStock: false },
-    { id: 5, name: "Keyboard", price: 3500, inStock: true }
+    { id: 1, name: "Laptop", price: "$999", inStock: true },
+    { id: 2, name: "Phone", price: "$699", inStock: false },
+    { id: 3, name: "Tablet", price: "$499", inStock: true },
   ]);
 
   const [filter, setFilter] = useState("all");
@@ -22,25 +20,31 @@ const App = () => {
   };
 
   const filteredProducts = products.filter((product) => {
-    if (filter === "inStock") return product.inStock;
-    if (filter === "outOfStock") return !product.inStock;
+    if (filter === "inStock") {
+      return product.inStock;
+    }
+
+    if (filter === "outOfStock") {
+      return !product.inStock;
+    }
+
     return true;
   });
 
   return (
     <div>
-      <h1>Product Dashboard</h1>
+      <h1 id="header">Product Dashboard</h1>
 
       <Stack direction="row" spacing={2} sx={{ mb: 3 }}>
-        <Button variant="contained" onClick={() => setFilter("all")}>
+        <Button onClick={() => setFilter("all")}>
           All Products
         </Button>
 
-        <Button variant="contained" onClick={() => setFilter("inStock")}>
+        <Button onClick={() => setFilter("inStock")}>
           In Stock
         </Button>
 
-        <Button variant="contained" onClick={() => setFilter("outOfStock")}>
+        <Button onClick={() => setFilter("outOfStock")}>
           Out of Stock
         </Button>
       </Stack>
